@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         users.push(e)
     }
     document.getElementById('osszes').addEventListener('click', async () => {
+        document.getElementById('lista').textContent = ""
         response =  await fetch('/users.json');
         eredmeny = await response.json();
         users.sort((a, b) => a.lastName.localeCompare(b.lastName))
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     })
     document.getElementById('elerhetoseg').addEventListener('click', async () => {
+        document.getElementById('tablazat').textContent = ""
         response =  await fetch('/users.json');
         eredmeny = await response.json();
         users.sort((a, b) => a.username.localeCompare(b.username))
@@ -41,11 +43,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         response =  await fetch('/users.json');
         eredmeny = await response.json();
         let userFilteredByHeight = users.filter(f => f.height >= cm)
-        let sum = 0
+        let sum = 0;
         for (let e of userFilteredByHeight) {
             sum += e.weight
         }
         document.getElementById('oszsulyDisplay').textContent = cm + "cm-nél magasabbak öszsúlya: "+ sum +" kg"
+    })
+    document.getElementById('barnaSz').addEventListener('click', async () => {
+        response =  await fetch('/users.json');
+        eredmeny = await response.json();
+        let userFilteredByEyeColor = users.filter(f => f.eyeColor == "Brown")
+        document.getElementById('barnaszem').textContent = "Barnaszemüek száma: " + userFilteredByEyeColor.length
+        
     })
 
 })
